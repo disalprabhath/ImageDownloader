@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Downloader</title>
+
+    <link rel="stylesheet" href="/stylesheets/main.css" type="text/css" />
+    <link rel="stylesheet" href="/lib/jquery.nouislider/jquery.nouislider.css" type="text/css" />
+    <style>
+      body
+      {
+        margin: 0;
+        padding: 0 2px 0 0;
+        min-width: 200px;
+        min-height: 150px;
+        box-sizing: border-box;
+        font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
+        color:#404040;
+        background-color:#ccecec;
+      }
+
+      .grid
+      {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      .grid td { padding: 0px 2px; }
+      .grid td input[type="text"],
+      .grid td input[type="button"],
+      .grid td input[type="number"],
+      .grid td select { width: 100%; }
+
+      #filters_container
+      {
+        position: fixed;
+        top: 0px;
+        box-sizing: border-box;
+        width: 100%;
+        padding: 2px 2px 2px 0;
+        background: #fff;
+        border-bottom: 1px solid #ccc;
+        
+        z-index:10;
+      }
+
+      #filters_container input[type="text"],
+      #filters_container input[type="button"],
+      #filters_container input[type="number"],
+      #filters_container select {
+        height: 26px;
+        margin-bottom: 4px;
+      }
+
+      #only_images_from_links_container { padding: 1px; }
+
+      #images_cache { display: none; }
+      #images_table { margin-top: 2px; }
+      #images_table img { cursor: pointer; }
+
+      .open_image_button,
+      .download_image_button {
+        width: 22px;
+        height: 34px;
+        cursor: pointer;
+
+        -webkit-mask-size: 20px;
+        -webkit-mask-repeat: no-repeat;
+        -webkit-mask-position: center;
+        
+        background-color: #737577;
+      }
+      .download_image_button {
+        -webkit-mask-size: 18px;
+      }
+
+      .open_image_button { 
+        -webkit-mask-image: url("/images/open.svg");
+      }
+      
+      .download_image_button {
+        -webkit-mask-image: url("/images/download.svg");
+      }
+	  
+      .image_url_textbox,
+      .image_size_textbox,
+      .image_type_textbox,
+      .image_gris_textbox,
+      .image_teris_textbox,
+      .image_biris_textbox,
+      .image_yaris_textbox {
+          cursor: pointer;
+          float: left;
+          background: #73777a;
+          padding: 1px 4px;
+          border-radius: 9px;
+          font-size: 12px;
+          color: #fff;
+          margin: 3px 2px 3px 2px
+      }
+	  
+      .images_table {
+        background-color:#e8e8e8;
+      }
+      
+      .filename_textbox {
+        bottom:0px;
+        left:0px;
+        width:100%;
+        box-sizing:border-box;
+        z-index:1000;
+        color:#6b6969;
+        border:0px;
+        padding:2px 2px;
+      }
+    </style>
+
+    <script src="/lib/zepto.js"></script>
+    <script src="/lib/jquery.nouislider/jquery.nouislider.js"></script>
+    <script src="/lib/jss.js"></script>
+
+    <script src="/scripts/defaults.js"></script>
+    <script src="/scripts/popup.js"></script>
+  </head>
+
+  <body>
+    <div id="filters_container">
+      <table>
+        <td>
+          <input type="button" id="download_button" class="accent" value="DOWNLOAD" disabled="true" />
+        </td>
+      </table>
+      <table class="grid" hidden>
+        <tr id="image_width_filter">
+          <td style="text-align: right;">
+            <label for="image_width_filter_min_checkbox">
+              <small id="image_width_filter_min"></small>
+            </label>
+          </td>
+          <td><input type="checkbox" id="image_width_filter_min_checkbox" /></td>
+          <td><div id="image_width_filter_slider"></div></td>
+          <td><input type="checkbox" id="image_width_filter_max_checkbox" /></td>
+          <td style="text-align: right;">
+            <label for="image_width_filter_max_checkbox">
+              <small id="image_width_filter_max"></small>
+            </label>
+          </td>
+        </tr>
+        <tr id="image_height_filter">
+          <td style="text-align: right;">
+            <label for="image_height_filter_min_checkbox">
+              <small id="image_height_filter_min"></small>
+            </label>
+          </td>
+          <td><input type="checkbox" id="image_height_filter_min_checkbox" /></td>
+          <td><div id="image_height_filter_slider"></div></td>
+          <td><input type="checkbox" id="image_height_filter_max_checkbox" /></td>
+          <td style="text-align: right;">
+            <label for="image_height_filter_max_checkbox">
+              <small id="image_height_filter_max"></small>
+            </label>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div id="images_cache"></div>
+    <table id="images_table" class="grid"></table>
+  </body>
+</html>
